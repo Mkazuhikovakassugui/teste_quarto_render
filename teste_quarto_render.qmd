@@ -1,0 +1,26 @@
+---
+title: "Relatórios com parâmetros usando purrr e quarto_render"
+format: 
+   html:
+      theme: quartz
+params:
+   cilindros: 6
+---
+```{r label = 'pacotes'}
+#| echo: false
+#| include: false
+
+library(tidyverse)
+```
+
+```{r label = 'grafico_consumo_potencia'}
+#| echo: false
+
+mtcars |> 
+filter(cyl == params$cilindros) |> 
+   ggplot()+
+   aes(x = hp, y = mpg)+
+   geom_point()+
+   labs(title = glue::glue("Consumo mpg x potência para veículos com {params$cilindros} cilindros"))
+
+```
